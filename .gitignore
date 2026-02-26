@@ -1,0 +1,12 @@
+# Python
+backend/venv/
+backend/__pycache__/
+*.pyc
+
+# Node
+web/node_modules/
+web/.next/
+
+# OS
+.DS_Store
+Thumbs.db
