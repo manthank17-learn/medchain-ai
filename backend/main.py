@@ -7,7 +7,8 @@ app = FastAPI()
 # Enable CORS (for Next.js frontend)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # dev only
+    allow_origins=["https://medichainai.dev",
+                    "https://www.medichainai.dev","http://localhost:3000"],  # dev only
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
