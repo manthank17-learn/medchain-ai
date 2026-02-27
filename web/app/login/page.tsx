@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -50,7 +50,7 @@ export default function LoginPage() {
                   type="email"
                   placeholder="you@hospital.com"
                   value={email}
-                  onChange={(event) => setEmail(event.target.value)}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}
                   required
                 />
               </div>
@@ -63,7 +63,7 @@ export default function LoginPage() {
                   type="password"
                   placeholder="••••••••"
                   value={password}
-                  onChange={(event) => setPassword(event.target.value)}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}
                   required
                 />
               </div>

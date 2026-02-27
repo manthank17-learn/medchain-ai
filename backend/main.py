@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from sqlalchemy import text
 from database import engine
 
 app = FastAPI()
@@ -25,7 +26,7 @@ def home():
 @app.get("/db-test")
 def db_test():
     with engine.connect() as conn:
-        conn.execute("SELECT 1")
+        conn.execute(text("SELECT 1"))
     return {"status": "database connected"}
 
 def triage_logic(text):

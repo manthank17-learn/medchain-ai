@@ -87,7 +87,7 @@ export default function DashboardPage() {
               <CardDescription>{selectedFile.name}</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-2">
-              {selectedFile.accessList.map((person) => (
+              {selectedFile.accessList.map((person: string) => (
                 <div key={person} className="rounded-md border border-border px-3 py-2 text-sm">
                   {person}
                 </div>
