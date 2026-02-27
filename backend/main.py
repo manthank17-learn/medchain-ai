@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from database import engine
 
 app = FastAPI()
 
@@ -20,6 +21,12 @@ class TriageRequest(BaseModel):
 @app.get("/")
 def home():
     return {"message": "MedChain AI Backend Running"}
+
+@app.get("/db-test")
+def db_test():
+    with engine.connect() as conn:
+        conn.execute("SELECT 1")
+    return {"status": "database connected"}
 
 def triage_logic(text):
     text_lower = text.lower()
