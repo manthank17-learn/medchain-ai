@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -37,6 +37,16 @@ const files: MedicalFile[] = [
 
 export default function DashboardPage() {
   const [selectedFileId, setSelectedFileId] = useState<string | null>(null);
+  const [guestId, setGuestId] = useState<string | null>(null);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isGuest = sessionStorage.getItem('isGuest');
+      const guest = sessionStorage.getItem('guestId');
+      if (isGuest === 'true' && guest) {
+        setGuestId(guest);
+      }
+    }
+  }, []);
 
   const selectedFile = useMemo(
     () => files.find((file) => file.id === selectedFileId) ?? null,
@@ -45,6 +55,11 @@ export default function DashboardPage() {
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-8">
+      {guestId && (
+        <div className="mb-4 rounded-lg bg-blue-100 text-blue-900 px-4 py-3 text-center text-base font-semibold">
+          Guest Mode: Your Guest ID is <span className="font-mono">{guestId}</span>
+        </div>
+      )}
       <section className="grid gap-6 md:grid-cols-3">
         <Card>
           <CardHeader>

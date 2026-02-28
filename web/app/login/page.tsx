@@ -5,11 +5,16 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 
+
 export default function LoginPage() {
   const router = useRouter();
 
   const handleLogin = () => {
     router.push("/dashboard");
+  };
+
+  const handleSignup = () => {
+    router.push("/signup");
   };
 
   return (
@@ -29,25 +34,45 @@ export default function LoginPage() {
 
         <section className="flex min-h-screen items-center justify-center bg-[var(--color-surface)] px-6">
           <div className="w-full max-w-sm text-center">
-            <div className="mb-8 flex items-center justify-center gap-3 rounded-[var(--radius-md)] transition-all duration-200 ease-in-out hover:-translate-y-1 hover:scale-[1.01]">
+            <div className="mb-4 flex flex-col items-center justify-center gap-2 rounded-[var(--radius-md)] transition-all duration-200 ease-in-out hover:-translate-y-1 hover:scale-[1.01]">
               <Image
                 src="/logo.png"
                 alt="Logo"
                 width={160}
                 height={48}
-                className="h-10 w-auto object-contain transition-transform duration-200 ease-in-out hover:scale-110"
+                className="h-16 w-auto object-contain transition-transform duration-200 ease-in-out hover:scale-110"
               />
-              <span className="text-[var(--text-xl)] font-semibold text-foreground">Medichain AI</span>
+              <span className="mt-2 text-[2rem] font-bold text-foreground">Medichain AI</span>
             </div>
 
-            <h1 className="text-[44px] font-bold text-foreground transition-all duration-200 ease-in-out hover:-translate-y-1 hover:scale-[1.01]">Get started</h1>
+            <h1 className="text-[2.5rem] font-bold text-foreground transition-all duration-200 ease-in-out hover:-translate-y-1 hover:scale-[1.01]">Get started</h1>
             <div className="mt-7 grid gap-3 sm:grid-cols-2">
-              <Button onClick={handleLogin} className="w-full transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:scale-[1.01]">Log in</Button>
-              <Button variant="outline" className="w-full transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:scale-[1.01]">
+              <Button onClick={handleLogin}
+                className="w-full transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:scale-[1.01]">
+                Log in
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:scale-[1.01]"
+                onClick={handleSignup}
+              >
                 Sign up for free
               </Button>
             </div>
-            <p className="mt-8 text-[var(--text-lg)] font-semibold text-foreground transition-all duration-200 ease-in-out hover:scale-[1.02]">Try it first</p>
+            <button
+              className="mt-8 w-full rounded-md bg-[#3659f8] text-white font-semibold py-2 text-lg hover:bg-blue-700 transition-all duration-200 ease-in-out"
+              onClick={() => {
+                // Generate a guest ID and store in sessionStorage
+                const guestId = 'guest-' + Math.random().toString(36).substring(2, 10);
+                if (typeof window !== 'undefined') {
+                  sessionStorage.setItem('guestId', guestId);
+                  sessionStorage.setItem('isGuest', 'true');
+                }
+                router.push('/dashboard');
+              }}
+            >
+              Try it first as Guest
+            </button>
 
             <div className="mt-40 text-[var(--text-sm)] text-muted-foreground">
               <div className="mb-3 flex justify-center">
