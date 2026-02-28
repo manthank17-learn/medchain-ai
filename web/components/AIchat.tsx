@@ -128,7 +128,7 @@ export default function AIchat({ userName = "Rayuser", fullPage = false }: AIcha
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center gap-3">
       <div className="hidden rounded-[var(--radius-md)] border border-border bg-[var(--color-surface)] px-4 py-3 shadow-[0_1px_3px_rgba(0,0,0,0.06),0_1px_2px_rgba(0,0,0,0.04)] lg:block">
         <p className="text-[var(--text-sm)] font-semibold text-foreground">{timedGreeting}</p>
         <p className="text-[11px] text-muted-foreground">How can Medichain AI help you today?</p>
@@ -136,7 +136,7 @@ export default function AIchat({ userName = "Rayuser", fullPage = false }: AIcha
 
       <div className="relative">
         {isOpen && (
-          <div className="absolute bottom-16 right-0 h-[460px] w-[360px]">
+          <div className="absolute bottom-16 right-0 h-[460px] w-[90vw] max-w-[360px] sm:w-[360px]">
             {panel}
           </div>
         )}

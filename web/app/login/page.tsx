@@ -42,10 +42,10 @@ export default function LoginPage() {
                 height={48}
                 className="h-16 w-auto object-contain transition-transform duration-200 ease-in-out hover:scale-110"
               />
-              <span className="mt-2 text-[2rem] font-bold text-foreground">Medichain AI</span>
+              <span className="mt-2 text-[1.5rem] sm:text-[2rem] font-bold text-foreground">Medichain AI</span>
             </div>
 
-            <h1 className="text-[2.5rem] font-bold text-foreground transition-all duration-200 ease-in-out hover:-translate-y-1 hover:scale-[1.01]">Get started</h1>
+            <h1 className="text-[1.75rem] sm:text-[2.5rem] font-bold text-foreground transition-all duration-200 ease-in-out hover:-translate-y-1 hover:scale-[1.01]">Get started</h1>
             <div className="mt-7 grid gap-3 sm:grid-cols-2">
               <Button onClick={handleLogin}
                 className="w-full transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:scale-[1.01]">
@@ -74,7 +74,7 @@ export default function LoginPage() {
               Try it first as Guest
             </button>
 
-            <div className="mt-40 text-[var(--text-sm)] text-muted-foreground">
+            <div className="login-footer mt-12 sm:mt-40 text-[var(--text-sm)] text-muted-foreground">
               <div className="mb-3 flex justify-center">
                 <Image
                   src="/logo.png"
