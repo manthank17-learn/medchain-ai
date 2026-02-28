@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./mobile.css";
 
 :root {
   --color-primary: #0ea5e9;
