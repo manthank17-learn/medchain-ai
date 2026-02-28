@@ -12,14 +12,14 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variantClasses: Record<ButtonVariant, string> = {
   default:
-    "bg-foreground text-background hover:opacity-90 border border-transparent",
+    "border border-transparent bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]",
   outline:
-    "border border-border bg-background text-foreground hover:bg-muted",
+    "border border-border bg-transparent text-foreground hover:bg-background",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  default: "h-10 px-4 py-2",
-  sm: "h-9 rounded-md px-3",
+  default: "h-[38px] px-4 text-[13px]",
+  sm: "h-8 rounded-[var(--radius-sm)] px-3 text-[13px]",
 };
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
@@ -33,7 +33,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => 
     <button
       ref={ref as React.Ref<HTMLButtonElement>}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground disabled:pointer-events-none disabled:opacity-50",
+        "inline-flex items-center justify-center gap-2 rounded-[var(--radius-md)] font-semibold transition-all duration-150 ease-in-out focus-visible:outline-none focus-visible:ring-0 focus-visible:border-[var(--color-primary)] focus-visible:shadow-[0_0_0_3px_rgba(14,165,233,0.15)] disabled:pointer-events-none disabled:opacity-50",
         variantClasses[v],
         sizeClasses[s],
         className,
