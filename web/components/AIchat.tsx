@@ -27,6 +27,8 @@ function getGreetingByHour(hour: number) {
 export default function AIchat({ userName = "Rayuser", fullPage = false }: AIchatProps) {
   const [isOpen, setIsOpen] = useState(fullPage);
   const [input, setInput] = useState("");
+  const [isSending, setIsSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "m1",
@@ -40,10 +42,26 @@ export default function AIchat({ userName = "Rayuser", fullPage = false }: AIcha
     return `${getGreetingByHour(now.getHours())}, ${userName}`;
   }, [userName]);
 
-  const sendMessage = (event: FormEvent) => {
+  const getAssistantReply = (prompt: string) => {
+    const lowerPrompt = prompt.toLowerCase();
+    if (lowerPrompt.includes("verify") || lowerPrompt.includes("hash")) {
+      return "Use the dashboard Trust & Verification panel to run integrity checks and confirm the record hash status.";
+    }
+    if (lowerPrompt.includes("access") || lowerPrompt.includes("share")) {
+      return "Open a record and review the Access List to confirm who currently has permission before sharing updates.";
+    }
+    if (lowerPrompt.includes("triage") || lowerPrompt.includes("risk")) {
+      return "Start with the patient summary, flag high-risk indicators, then attach your clinician note for a traceable decision history.";
+    }
+    return "I received that. I can help with records, access verification, and AI-assisted triage workflow steps.";
+  };
+
+  const sendMessage = async (event: FormEvent) => {
     event.preventDefault();
     const trimmed = input.trim();
-    if (!trimmed) return;
+    if (!trimmed || isSending) return;
+
+    setSendError(null);
 
     const userMessage: ChatMessage = {
       id: `u-${Date.now()}`,
@@ -51,14 +69,23 @@ export default function AIchat({ userName = "Rayuser", fullPage = false }: AIcha
       text: trimmed,
     };
 
-    const assistantMessage: ChatMessage = {
-      id: `a-${Date.now()}`,
-      role: "assistant",
-      text: "I received that. This chat UI is ready; next step is wiring it to your backend AI service.",
-    };
-
-    setMessages((prev) => [...prev, userMessage, assistantMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
+    setIsSending(true);
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 700));
+      const assistantMessage: ChatMessage = {
+        id: `a-${Date.now()}`,
+        role: "assistant",
+        text: getAssistantReply(trimmed),
+      };
+      setMessages((prev) => [...prev, assistantMessage]);
+    } catch {
+      setSendError("Unable to send right now. Please try again.");
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const panel = (
@@ -94,6 +121,11 @@ export default function AIchat({ userName = "Rayuser", fullPage = false }: AIcha
       </div>
 
       <div className="flex-1 space-y-3 overflow-y-auto bg-background p-4">
+        {sendError && (
+          <div className="rounded-[var(--radius-md)] border border-border bg-[var(--color-surface)] px-3 py-2 text-[var(--text-sm)] text-[var(--color-danger)]">
+            {sendError}
+          </div>
+        )}
         {messages.map((message) => (
           <div
             key={message.id}
@@ -107,6 +139,11 @@ export default function AIchat({ userName = "Rayuser", fullPage = false }: AIcha
             {message.text}
           </div>
         ))}
+        {isSending && (
+          <div className="max-w-[85%] rounded-[var(--radius-md)] border border-border bg-[var(--color-surface)] px-3 py-2 text-[var(--text-sm)] text-muted-foreground">
+            Medichain AI is thinking...
+          </div>
+        )}
       </div>
 
       <form onSubmit={sendMessage} className="border-t border-border bg-[var(--color-surface)] p-3">
@@ -116,8 +153,11 @@ export default function AIchat({ userName = "Rayuser", fullPage = false }: AIcha
             onChange={(event) => setInput(event.target.value)}
             placeholder="Type your message..."
             className="h-[38px]"
+            disabled={isSending}
           />
-          <Button type="submit" size="sm">Send</Button>
+          <Button type="submit" size="sm" disabled={isSending || input.trim().length === 0}>
+            {isSending ? "Sending..." : "Send"}
+          </Button>
         </div>
       </form>
     </div>

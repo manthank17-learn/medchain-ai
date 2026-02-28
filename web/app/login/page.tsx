@@ -2,19 +2,34 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
+type ActionState = "idle" | "login" | "signup" | "guest";
 
 export default function LoginPage() {
   const router = useRouter();
+  const [actionState, setActionState] = useState<ActionState>("idle");
 
   const handleLogin = () => {
+    setActionState("login");
     router.push("/dashboard");
   };
 
   const handleSignup = () => {
+    setActionState("signup");
     router.push("/signup");
+  };
+
+  const handleGuestMode = () => {
+    setActionState("guest");
+    const guestId = `guest-${Math.random().toString(36).substring(2, 10)}`;
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("guestId", guestId);
+      sessionStorage.setItem("isGuest", "true");
+    }
+    router.push("/dashboard");
   };
 
   return (
@@ -46,33 +61,38 @@ export default function LoginPage() {
             </div>
 
             <h1 className="text-[1.75rem] sm:text-[2.5rem] font-bold text-foreground transition-all duration-200 ease-in-out hover:-translate-y-1 hover:scale-[1.01]">Get started</h1>
+            <p className="mt-3 text-[var(--text-sm)] text-muted-foreground">
+              Securely manage medical records with AI insights and verifiable audit trails.
+            </p>
             <div className="mt-7 grid gap-3 sm:grid-cols-2">
-              <Button onClick={handleLogin}
+              <Button
+                onClick={handleLogin}
+                disabled={actionState !== "idle"}
                 className="w-full transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:scale-[1.01]">
-                Log in
+                {actionState === "login" ? "Opening..." : "Log in"}
               </Button>
               <Button
                 variant="outline"
                 className="w-full transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:scale-[1.01]"
                 onClick={handleSignup}
+                disabled={actionState !== "idle"}
               >
-                Sign up for free
+                {actionState === "signup" ? "Opening..." : "Sign up for free"}
               </Button>
             </div>
             <button
               className="mt-8 w-full rounded-md bg-[#3659f8] text-white font-semibold py-2 text-lg hover:bg-blue-700 transition-all duration-200 ease-in-out"
-              onClick={() => {
-                // Generate a guest ID and store in sessionStorage
-                const guestId = 'guest-' + Math.random().toString(36).substring(2, 10);
-                if (typeof window !== 'undefined') {
-                  sessionStorage.setItem('guestId', guestId);
-                  sessionStorage.setItem('isGuest', 'true');
-                }
-                router.push('/dashboard');
-              }}
+              onClick={handleGuestMode}
+              disabled={actionState !== "idle"}
             >
-              Try it first as Guest
+              {actionState === "guest" ? "Opening guest mode..." : "Try it first as Guest"}
             </button>
+
+            <div className="mt-5 grid gap-2 text-left">
+              <div className="snow-badge snow-badge-success inline-flex w-fit items-center gap-1">Encrypted in transit</div>
+              <div className="snow-badge snow-badge-success inline-flex w-fit items-center gap-1">Role-based access controls</div>
+              <div className="snow-badge snow-badge-success inline-flex w-fit items-center gap-1">Tamper-evident record history</div>
+            </div>
 
             <div className="login-footer mt-12 sm:mt-40 text-[var(--text-sm)] text-muted-foreground">
               <div className="mb-3 flex justify-center">
