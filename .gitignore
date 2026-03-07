@@ -3,6 +3,7 @@ backend/venv/
 backend/__pycache__/
 *.pyc
 .env
+.env.*
 
 # Node
 web/node_modules/
@@ -10,4 +11,4 @@ web/.next/
 
 # OS
 .DS_Store
-Thumbs.dbgit
+Thumbs.db

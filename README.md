@@ -5,13 +5,13 @@
 
 > A secure, AI-powered digital health platform for managing and interacting with medical information.
 
-**Status:** Active Development &nbsp;|&nbsp; **Platform:** [medichainai.dev/login](https://medichainai.dev/login)
+**Status:** Prototyping (Active Development) &nbsp;|&nbsp; **Platform:** [medichainai.dev/login](https://medichainai.dev/login)
 
 ---
 
 ## Overview
 
-MedChain AI is a digital health platform combining modern web technologies with AI systems to build a unified infrastructure for healthcare data management. The platform targets secure medical data access, intelligent record interaction, and AI-assisted clinical support across web and mobile.
+MedChain AI is a digital health platform combining modern web technologies, blockchain-backed audit design, and AI systems to build a unified infrastructure for healthcare data management. The platform targets secure medical data access, intelligent record interaction, and AI-assisted clinical support across web and mobile.
 
 ---
 
@@ -44,6 +44,7 @@ The AI system will interface directly with platform-stored medical records while
 
 | Layer | Focus |
 |---|---|
+| Blockchain | Verifiable medical action trails and trust layer |
 | AI/ML | Medical record understanding, structured + unstructured data |
 | Backend | Secure API-based services, database connectivity |
 | Infrastructure | Scalable cloud deployment |
