@@ -72,6 +72,19 @@ Core infrastructure — backend services, database connectivity, and AI integrat
 
 ---
 
+## Team Updates (PR-style)
+
+Use this section to post short collaboration updates.
+
+### 2026-03-07
+
+- Added core project README structure for collaborators
+- Clarified prototype status and blockchain direction
+- Added Sunbird AI Sunflower local-model reference
+- Fixed `.gitignore` rules for `.env` safety
+
+---
+
 ## Roadmap
 
 - [ ] AI-driven medical chat assistant
