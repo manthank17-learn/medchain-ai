@@ -85,6 +85,47 @@ Use this section to post short collaboration updates.
 
 ---
 
+## Next-Round Upgrade Checklist
+
+This checklist is for the post-submission competition phase.
+
+### Priority 1 — Demo Reliability (must-have)
+
+- [ ] Lock one end-to-end patient demo flow (login → triage → result → doctor view)
+- [ ] Prepare fixed seed/demo data so every run is predictable
+- [ ] Add fallback behavior if AI service is unavailable
+- [ ] Add clear error states on frontend for API/network failures
+
+### Priority 2 — Security + Trust Story
+
+- [ ] Keep PHI off-chain; store only hashed metadata on-chain
+- [ ] Add auditable event logging for key record actions
+- [ ] Add role-based route protection (patient/doctor/admin)
+- [ ] Add basic input validation + rate limit protections on backend APIs
+
+### Priority 3 — AI Quality (Sunbird Sunflower)
+
+- [ ] Add structured triage output format (urgency, rationale, action)
+- [ ] Add medical safety guardrails for emergency symptoms
+- [ ] Log model version in responses for reproducibility
+- [ ] Build 10 benchmark prompts for before/after scoring
+
+### Priority 4 — Competition Presentation Pack
+
+- [ ] Prepare “What changed since submission” slide (before vs after)
+- [ ] Record a 2-minute updated product demo
+- [ ] Add simple architecture diagram (web, API, AI, blockchain)
+- [ ] Include 3 measurable improvements (latency, reliability, auditability)
+
+### Suggested Ownership
+
+- Product + demo script: Mariam
+- Frontend auth/routes: Web team
+- Backend validation + safety: API team
+- Smart contract audit events: Blockchain team
+
+---
+
 ## Roadmap
 
 - [ ] AI-driven medical chat assistant
